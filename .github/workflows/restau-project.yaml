@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup .NET 5
+        uses: docker/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+        name: Restore dependencies
+        uses: dotnet restore
+      -
+        name: Build app
+        uses: dotnet build -c Release --no-restore
+      
